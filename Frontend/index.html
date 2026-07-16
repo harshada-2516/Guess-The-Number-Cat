@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A cute, interactive, and professional cat-themed number guessing game built with HTML, CSS, and Vanilla JavaScript. Fun feedback indicators, meowing audio waves, and dynamic hints!">
+    <title>Guess The Number - Cat Reaction Game</title>
+    <!-- Google Fonts: Fredoka (rounded/friendly for headers) & Outfit (sleek/readable for text) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Animation Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" aria-hidden="true">
+        <div class="loader-content">
+            <span class="paws">🐾</span>
+            <span class="loader-text">Loading Cat Feed...</span>
+        </div>
+    </div>
+
+    <!-- Floating Background Shapes -->
+    <div class="background-decorations" aria-hidden="true">
+        <div class="shape shape-circle"></div>
+        <div class="shape shape-triangle"></div>
+    </div>
+
+    <!-- Main Outer Container -->
+    <div class="game-wrapper">
+        <header>
+            <div class="header-content">
+                <!-- Theme Toggle Button -->
+                <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark mode" title="Toggle theme">
+                    <span class="toggle-icon sun-icon">☀️</span>
+                    <span class="toggle-icon moon-icon">🌙</span>
+                </button>
+                <div class="title-container">
+                    <span class="paw-icon left-paw">🐾</span>
+                    <h1 class="glow-text">Meow Guess?</h1>
+                    <span class="paw-icon right-paw">🐾</span>
+                </div>
+                <p class="subtitle">A purr-fect number guessing adventure!</p>
+            </div>
+        </header>
+
+        <main>
+            <!-- Modern Glassmorphism Play Card -->
+            <section class="game-card" aria-label="Game Board">
+                <!-- Instructions -->
+                <div class="instructions-section">
+                    <p>I have secretively chosen a number between <strong class="highlight-range">1 and 100</strong>.</p>
+                    <p>Can you guess it before I scratch you? 😸</p>
+                    <br>
+                </div>
+
+                <!-- Animated Cat Viewer -->
+                <div class="cat-display-panel">
+                    <div class="cat-wrapper" id="catWrapper">
+                        <!-- Default thinking cat, alt tags dynamically updated -->
+                        <img src="assets/images/thinking.png" alt="A cute cartoon thinking cat scratching chin" id="catSprite" class="cat-image bounce">
+                        
+                        <!-- Dynamic speech bubbles / meow text -->
+                        <div class="speech-bubble" id="speechBubble" role="status">
+                            <span id="speechText">Hmm... Make a guess!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Messages & Errors -->
+                <div class="message-container" id="messageContainer" role="status">
+                    <p id="gameMessage" class="feedback-msg info-msg">Waiting for your first guess...</p>
+                </div>
+
+                <!-- User Interactive Input Form -->
+                <div class="controls-panel">
+                    <div class="input-container">
+                        <input 
+                            type="number" 
+                            id="guessInput" 
+                            min="1" 
+                            max="100" 
+                            placeholder="Enter 1-100" 
+                            aria-label="Your guess number"
+                            autocomplete="off"
+                            required
+                        >
+                        <span class="input-focus-border"></span>
+                    </div>
+                    
+                    <button type="button" id="guessBtn" class="primary-btn" aria-label="Submit your guess">
+                        <span class="btn-ripple-container"></span>
+                        <span class="btn-text">Guess! 🐾</span>
+                    </button>
+                    
+                    <button type="button" id="restartBtn" class="secondary-btn hidden" aria-label="Play another game">
+                        <span class="btn-ripple-container"></span>
+                        <span class="btn-text">Play Again 🔄</span>
+                    </button>
+                </div>
+
+                <!-- Dynamic Hint Panel (Initially Hidden) -->
+                <div class="hint-panel collapsed" id="hintPanel" aria-live="polite">
+                    <div class="hint-header">
+                        <span class="hint-icon">💡</span>
+                        <h3>Purr-fect Hint</h3>
+                    </div>
+                    <p id="hintText">The cat whispers nothing yet...</p>
+                </div>
+
+                <!-- Stats Dashboard -->
+                <div class="stats-dashboard">
+                    <div class="stat-box">
+                        <span class="stat-label">Attempts</span>
+                        <span class="stat-value" id="attemptsCounter">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Best Score</span>
+                        <span class="stat-value" id="bestScore">--</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Games Won</span>
+                        <span class="stat-value" id="gamesWon">0</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>Designed with ❤️ for Cat Lovers</p>
+                <p class="credits">Sound fallbacks generated by Web Audio API • Images via AI</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Hidden audio element definitions for explicit media loader checks -->
+    <div class="audio-preload-wrapper" style="display:none;" aria-hidden="true">
+        <audio id="audioClick" src="assets/sounds/click.mp3" preload="auto"></audio>
+        <audio id="audioMeow" src="assets/sounds/meow.mp3" preload="auto"></audio>
+        <audio id="audioAngry" src="assets/sounds/angry.mp3" preload="auto"></audio>
+        <audio id="audioHappy" src="assets/sounds/happy.mp3" preload="auto"></audio>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
